@@ -1,0 +1,20 @@
+#title_header{
+    font-weight: bolder;
+}
+
+.section-heading-line {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: #09b6c9;
+    border-radius: 25%;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.sub-title{
+    font-weight: bold;
+    color: coral;
+}

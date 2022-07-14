@@ -8,9 +8,9 @@ $delete_check = false;
 <?php
 
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET'){
-  if(isset($_GET['delete'])){
-    $did= $_GET['delete'];
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+  if (isset($_GET['delete'])) {
+    $did = $_GET['delete'];
     $delete_sql = "DELETE FROM `packages` WHERE `packages`.`id` = '$did'";
     $res = mysqli_query($conn, $delete_sql);
     if ($res) {
@@ -23,24 +23,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if (isset($_POST['pid'])) {
     //update
-    $id= $_POST['pid'];
+    $id = $_POST['pid'];
     $name = $_POST['pname'];
+    $speed = $_POST['pspeed'];
     $price = $_POST['pprice'];
     $desc = $_POST['pdesc'];
-    $update_sql = "UPDATE `packages` SET `name` = '$name' , `price`='$price' , `description`='$desc' WHERE `packages`.`id` = '$id';";
+    $update_sql = "UPDATE `packages` SET `name` = '$name' , `speed`='$speed', `price`='$price' , `description`='$desc' WHERE `packages`.`id` = '$id';";
     $res = mysqli_query($conn, $update_sql);
     if ($res) {
       $update_check = true;
     }
-
-    
-    
   } else {
     $name = $_POST['pname'];
+    $speed = $_POST['pspeed'];
     $price = $_POST['pprice'];
     $desc = $_POST['pdesc'];
-    $pop= 0;
-    $insert_sql = "INSERT INTO `packages` (`id`, `name`, `price`, `description`, `popularity`) VALUES ('NULL', '$name', '$price', '$desc', '0');";
+    $pop = 0;
+    $insert_sql = "INSERT INTO `packages` (`id`, `name`, `speed`, `price`, `description`, `popularity`) VALUES ('NULL', '$name', '$speed', '$price', '$desc', '0');";
     $res = mysqli_query($conn, $insert_sql);
     if ($res) {
       $insert_check = true;
@@ -115,9 +114,15 @@ if ($delete_check) {
             </div>
 
             <div class="mb-2">
+              <label class="pack-labels" for="pspeedEdit">Package Speed</label>
+              <br>
+              <input class="my-2" type="number" name="pspeed" id="pspeedEdit" required>
+            </div>
+
+            <div class="mb-2">
               <label class="pack-labels" for="ppriceEdit">Package Price</label>
               <br>
-              <input class="my-2" type="number" name="pprice" id="ppriceEdit" min="500" step="100" required>
+              <input class="my-2" type="number" name="pprice" id="ppriceEdit" min="500" step="50" required>
             </div>
 
             <div class="mb-3">
@@ -154,9 +159,15 @@ if ($delete_check) {
       </div>
 
       <div class="mb-2">
+        <label class="pack-labels" for="pspeed">Package Speed</label>
+        <br>
+        <input class="my-2" type="number" name="pspeed" id="pspeed" required>
+      </div>
+
+      <div class="mb-2">
         <label class="pack-labels" for="pprice">Package Price</label>
         <br>
-        <input class="my-2" type="number" name="pprice" id="pprice" min="500" step="100" required>
+        <input class="my-2" type="number" name="pprice" id="pprice" min="500" step="50" required>
       </div>
 
       <div class="mb-3">
@@ -179,6 +190,7 @@ if ($delete_check) {
       <thead>
         <tr>
           <th>Name</th>
+          <th>speed</th>
           <th>Price</th>
           <th>Description</th>
           <th>Popularity</th>
@@ -195,6 +207,7 @@ if ($delete_check) {
           while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr id='$row[id]'>
           <td>$row[name]</td>
+          <td>$row[speed]</td>
           <td>$row[price]</td>
           <td>$row[description]</td>
           <td>$row[popularity]</td>
@@ -230,41 +243,43 @@ if ($delete_check) {
   </script>
   <!-- <script src="../js/package-manager.js"></script> -->
 
-<script>
-    edits= document.getElementsByClassName("edit");
-    Array.from(edits).forEach((element)=>{
-    element.addEventListener("click", (e)=>{
-        row= e.target.parentNode.parentNode;
-        package_name= row.getElementsByTagName("td")[0].innerText;
-        package_price= row.getElementsByTagName("td")[1].innerText;
-        package_description= row.getElementsByTagName("td")[2].innerText;
-        package_popularity= row.getElementsByTagName("td")[3].innerText;
-        console.log(package_name,package_price,package_description,package_popularity);
+  <script>
+    edits = document.getElementsByClassName("edit");
+    Array.from(edits).forEach((element) => {
+      element.addEventListener("click", (e) => {
+        row = e.target.parentNode.parentNode;
+        package_name = row.getElementsByTagName("td")[0].innerText;
+        package_speed = row.getElementsByTagName("td")[1].innerText;
+        package_price = row.getElementsByTagName("td")[2].innerText;
+        package_description = row.getElementsByTagName("td")[3].innerText;
+        package_popularity = row.getElementsByTagName("td")[4].innerText;
+        console.log(package_name, package_price, package_description, package_popularity);
         document.getElementById('pnameEdit').setAttribute("value", package_name);
+        document.getElementById('pspeedEdit').setAttribute("value", package_speed);
         document.getElementById('ppriceEdit').setAttribute("value", package_price);
-        pdescEdit.value= package_description;
-        pidEdit.value= row.id;
+        pdescEdit.value = package_description;
+        pidEdit.value = row.id;
         const myModal = new bootstrap.Modal(document.getElementById('editModal'), {});
         myModal.show();
-       
+
+      })
     })
-})
 
 
-deletes= document.getElementsByClassName("delete");
-    Array.from(deletes).forEach((element)=>{
-    element.addEventListener("click", (e)=>{
-        row= e.target.parentNode.parentNode;
-        id=row.id;
+    deletes = document.getElementsByClassName("delete");
+    Array.from(deletes).forEach((element) => {
+      element.addEventListener("click", (e) => {
+        row = e.target.parentNode.parentNode;
+        id = row.id;
         if (confirm("Press a button!")) {
-           window.location=`http://localhost/piperNet/admin_dashboard/includes/package-manager.php?delete=${id}`;
+          window.location = `http://localhost/piperNet/admin_dashboard/includes/package-manager.php?delete=${id}`;
         } else {
           console.log("no");
         }
-       
+
+      })
     })
-})
-</script>
+  </script>
 
 
 
