@@ -9,6 +9,56 @@ include('admin.php');
 ?>
 
 
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+  if (isset($_GET['accept'])) {
+    $id= $_GET['accept'];
+    $ac_sql = "UPDATE `requests` SET `status` = '1' WHERE `requests`.`rid` = '$id';";
+    $ac_res = mysqli_query($conn, $ac_sql);
+
+     $to_email = $_GET['email'];
+     $subject = "Connection Request Accepted";
+     $body = "Dear Customer, your connection request has been accepted. Our team will contact you within 3 days";
+     $headers = "From: pipernetbd@gmail.com";
+     
+     if (mail($to_email, $subject, $body, $headers)) {
+         echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+         <strong>Successful!!</strong> Email Sent
+         <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+       </div>";
+     } else {
+         echo  "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+         <strong>Failed!!</strong> Email Could Not Be Sent
+         <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+       </div>";
+     }
+
+  }
+
+  if (isset($_GET['reject'])) {
+    $id= $_GET['reject'];
+    $rj_sql = "DELETE FROM `requests` WHERE `requests`.`rid` = '$id';";
+    $rj_res = mysqli_query($conn, $rj_sql);
+    $to_email = $_GET['email'];
+    $subject = "Connection Request Not Accepted";
+    $body = "Dear Customer, your connection request has not been accepted. We are extremely sorry";
+    $headers = "From: pipernetbd@gmail.com";
+    
+    if (mail($to_email, $subject, $body, $headers)) {
+        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+        <strong>Successful!!</strong> Email Sent
+        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+      </div>";
+    } else {
+        echo  "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+        <strong>Failed!!</strong> Email Could Not Be Sent
+        <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+      </div>";
+    }
+
+ }
+}
+?>
 
 <!doctype html>
 <html lang="en">
@@ -25,7 +75,7 @@ include('admin.php');
 <body>
 
    <div class="container my-3">
-    
+    <h3>Connection Requests</h3>
    </div>
 
 
@@ -56,7 +106,7 @@ include('admin.php');
             $pname_fetch= mysqli_fetch_assoc($pres);
             $pname= $pname_fetch['pname'];
             echo 
-          "<tr>
+          "<tr id='$row[rid]'>
           <td>$row[date]</td>
           <td>$row[name]</td>
           <td>$row[contact]</td>
@@ -92,6 +142,36 @@ include('admin.php');
     $(document).ready(function() {
       $('#myTable').DataTable();
     });
+  </script>
+
+  <script>
+       accepts = document.getElementsByClassName("accept");
+    Array.from(accepts).forEach((element) => {
+      element.addEventListener("click", (e) => {
+        row = e.target.parentNode.parentNode;
+        id = row.id;
+        email = row.getElementsByTagName("td")[3].innerText;
+        if (confirm("Are You Sure?")) {
+          window.location = `http://localhost/PiperNet/admin_dashboard/includes/request.php?accept=${id}&email=${email}`;
+        } else {
+          console.log("no");
+        }
+      })
+    })
+
+    rejects = document.getElementsByClassName("reject");
+    Array.from(rejects).forEach((element) => {
+      element.addEventListener("click", (e) => {
+        row = e.target.parentNode.parentNode;
+        id = row.id;
+        email = row.getElementsByTagName("td")[3].innerText;
+        if (confirm("Are You Sure?")) {
+          window.location = `http://localhost/PiperNet/admin_dashboard/includes/request.php?reject=${id}&email=${email}`;
+        } else {
+          console.log("no");
+        }
+      })
+    })
   </script>
 
 </body>
