@@ -1,0 +1,23 @@
+.menu-list{
+    list-style-type: none;
+}
+
+.menu-item{
+    padding: 3px;
+    margin-bottom: 3px;
+}
+
+/* .nav-container{
+    position: relative;
+}
+
+.navbar-toggler{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.navbar-brand{
+    position: absolute;
+    left: 50%;
+} */
