@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       
       
 
-      $update_sql = "UPDATE `packages` SET `popularity` = `popularity` + 1 WHERE `packages`.`id` = 1;";
+      $update_sql = "UPDATE `packages` SET `popularity` = `popularity` + 1 WHERE `packages`.`id` = '$pid';";
       $upres = mysqli_query($conn, $update_sql);
 
       $insert_sql = "INSERT INTO `users` (`id`, `date`, `name`, `contact`, `email`, `address`, `pack_id`, `validity`) VALUES ('$uid', '$date', '$name', '$contact', '$email', '$address', '$pid', '0');";
