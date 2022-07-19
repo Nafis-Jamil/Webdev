@@ -56,8 +56,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
        }
   
     }
+    if (isset($_GET['delete'])) {
+      $uid= $_GET['delete'];
+      $pid= $_GET['pid'];
+      $sql = "UPDATE `packages` SET `popularity`=`popularity` - 1  WHERE `packages`.`id`='$pid';";
+      mysqli_query($conn,$sql);
+      $sql = "DELETE FROM `users` WHERE `users`.`id`='$uid';";
+      mysqli_query($conn,$sql);
+      $sql = "DELETE FROM `complaints` WHERE `complaints`.`cus_id`='$uid';";
+      mysqli_query($conn,$sql);
+    }
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $uid= $_POST['uid'];
+  $contact = $_POST['econtact'];
+  $email= $_POST['eemail'];
+  $pid = $_POST['package'];
+  $opid= $_POST['opid'];
+  $sql = "UPDATE `packages` SET `popularity`=`popularity` - 1  WHERE `packages`.`id`='$opid';";
+  mysqli_query($conn,$sql);
+  $sql = "UPDATE `users` SET `contact`='$contact' , `email`='$email' , `pack_id`='$pid' WHERE `users`.`id`='$uid';";
+  mysqli_query($conn,$sql);
+  $sql = "UPDATE `packages` SET `popularity`=`popularity` + 1  WHERE `packages`.`id`='$pid';";
+  mysqli_query($conn,$sql);
+}
 ?>
 
 <!doctype html>
@@ -73,6 +96,58 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 </head>
 
 <body>
+
+
+     <!-- Modal -->
+     <div class="modal fade" id="userEditModal" tabindex="-1" aria-labelledby="userEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userEditModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reqForm"  action="http://localhost/piperNet/admin_dashboard/includes/user.php" method="post">
+                         <input type="hidden" id="uid" name="uid">
+                         <input type="hidden" id="opid" name="opid">
+                        <div class="mb-3">
+                            <label for="econtact" class="form-label">Contact</label>
+                            <input type="tel" class="form-control" id="econtact" name="econtact" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="eemail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="eemail" name="eemail" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="package" class="form-label">Address</label>
+                            <select class="form-select form-select-sm" id="package" name="package" required>
+                                <?php
+                                $show_sql = 'SELECT `id` , `name` FROM `packages` ORDER BY `packages`.`price` ASC;';
+                                $result = mysqli_query($conn, $show_sql);
+                                $check = mysqli_num_rows($result);
+                                if ($check > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo "<option id='$row[id]' value='$row[id]'>$row[name]</option>";
+                                    }
+                                }
+                                ?>  
+                            </select>
+                        </div>
+
+
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" form="reqForm" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
    <div class="container my-3">
     <h3>Pending Users</h3>
@@ -145,6 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
           <th>Contact</th>
           <th>Email</th>
           <th>Address</th>
+          <th>validity</th>
           <th>Package</th>
           <th>Actions</th>
         </tr>
@@ -169,10 +245,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
           <td>$row[contact]</td>
           <td>$row[email]</td>
           <td>$row[address]</td>
+          <td>$row[validity]</td>
           <td>$pname</td>
           <td>
           <button class='btn btn-sm btn-success edit' id='$row[pack_id]'>Edit</button> 
-          <button class='btn btn-sm btn-success delete' id='$row[pack_id]'>Edit</button> 
+          <button class='btn btn-sm btn-danger delete' id='$row[pack_id]'>Delete</button> 
           </td>
         </tr>";
           }
@@ -223,6 +300,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         } else {
           console.log("no");
         }
+      })
+    })
+
+    edits = document.getElementsByClassName("edit");
+    Array.from(edits).forEach((element) => {
+      element.addEventListener("click", (e) => {
+        row = e.target.parentNode.parentNode;
+        contact = row.getElementsByTagName("td")[3].innerText;
+        email = row.getElementsByTagName("td")[4].innerText;
+        document.getElementById('uid').setAttribute("value", row.id);
+        document.getElementById('econtact').setAttribute("value", contact);
+        document.getElementById('eemail').setAttribute("value", email);
+        document.getElementById('opid').setAttribute("value", e.target.id);
+        document.getElementById(e.target.id).setAttribute('selected', 'selected');
+        const myModal = new bootstrap.Modal(document.getElementById('userEditModal'), {});
+        myModal.show();
+
+      })
+    })
+
+    deletes = document.getElementsByClassName("delete");
+    Array.from(deletes).forEach((element) => {
+      element.addEventListener("click", (e) => {
+        row = e.target.parentNode.parentNode;
+        id= row.id;
+        pid= e.target.id;
+        if (confirm("Press a button!")) {
+          window.location = `http://localhost/PiperNet/admin_dashboard/includes/user.php?delete=${id}&pid=${pid}`;
+
+        } else {
+          console.log("no");
+        }
+
       })
     })
   </script>

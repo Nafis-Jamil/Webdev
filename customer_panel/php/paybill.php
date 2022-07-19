@@ -1,5 +1,5 @@
-<?php;
-include('nav.php');
+<?php
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +36,7 @@ include('nav.php');
                     <div class="enter-customer-id">
                         <h4>Pay through online </h4>
                         <h5>Enter customer ID:</h5>
-                        <div><input type="text" name="customer_id" placeholder="L3R120" value=""></div>
+                        <div><input type="text" name="customer_id" value="<?php echo $_SESSION['login'];?>"></div>
                     </div>
                     <div class="button-group my-2">
                         <input type="submit" class="btn btn-sm btn-info" value="Next">

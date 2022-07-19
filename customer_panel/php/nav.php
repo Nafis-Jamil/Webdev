@@ -96,7 +96,7 @@ if(isset($_GET['logout'])){
                     </li>
 
                     <li class="nav-item">
-                        <a href="http://localhost/piperNet/customer_panel/php/paybill.php" class="nav-link mx-2">
+                        <a href="http://localhost/piperNet/customer_panel/php/paybill.php" class="nav-link mx-2" target="blank">
                             Pay Bill
                         </a>
                     </li>

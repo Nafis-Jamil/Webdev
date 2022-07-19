@@ -2,8 +2,19 @@
 include('db-connection.php');
 if (isset($_GET['id'])) {
     $id= $_GET['id'];
-    $update_sql = "UPDATE `users` SET `validity` = `validity` + 30 WHERE `users`.`id` = '$id';";
+	$sql = "SELECT `validity` FROM `users` WHERE `users`.`id` = '$id';";
+	$res = mysqli_query($conn,$sql);
+	$fetch = mysqli_fetch_assoc($res);
+	$validity= $fetch['validity'];
+	if($validity<0){
+	$update_sql = "UPDATE `users` SET `validity` = 30 WHERE `users`.`id` = '$id';";
     $upres = mysqli_query($conn, $update_sql);
+	}
+	else{
+	$update_sql = "UPDATE `users` SET `validity` = `validity` + 30 WHERE `users`.`id` = '$id';";
+    $upres = mysqli_query($conn, $update_sql);
+	}
+    
 }
 ?>
 
@@ -61,10 +72,37 @@ if($code == 200 && !( curl_errno($handle)))
 	$validated_on = $result->validated_on;
 	$gw_version = $result->gw_version;
 
-    echo $status." ".$tran_date." ".$tran_id;
 
 } else {
 
 	echo "Failed to connect with SSLCOMMERZ";
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container text-center my-5 px-5 py-4 bg-light">
+        <h2 class="text-success display-3">Payment Successful</h2>
+    </div>
+
+	<div class="container my-3 text-center">
+		<a href="http://localhost/PiperNet/customer_panel/php/pdf.php?id=<?php echo $id ;?>&date=<?php echo $tran_date ;?>&tid=<?php echo $tran_id; ?>&type=<?php echo $card_type; ?>&amount=<?php echo $amount; ?>" class="btn btn-lg btn-primary">Download Recipt</a>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
