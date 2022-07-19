@@ -4,7 +4,22 @@ include('nav.php');
 ?>
 
 <?php
-
+if(isset($_SESSION['login'])){
+     $id= $_SESSION['login'];
+     $sql= "SELECT `date` , `name` , `pack_id`, `validity` FROM `users` WHERE `users`.`id`='$id';";
+     $res= mysqli_query($conn,$sql);
+     $fetch_sql = mysqli_fetch_assoc($res);
+     $name= $fetch_sql['name'];
+     $date= $fetch_sql['date'];
+     $pid= $fetch_sql['pack_id'];
+     $validity= $fetch_sql['validity'];
+     $sql = "SELECT `name`, `speed`, `price` FROM `packages` WHERE `packages`.`id` = '$pid';";
+     $res= mysqli_query($conn,$sql);
+     $fetch_sql = mysqli_fetch_assoc($res);
+     $pname = $fetch_sql['name'];
+     $pspeed = $fetch_sql['speed'];
+     $pprice = $fetch_sql['price'];
+   }
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +50,7 @@ include('nav.php');
                             <i class="fa-solid fa-check-double fa-4x"></i>
                         </div>
                         <div class="col">
-                            <h4>08-08-1234</h4>
+                            <h4><?php echo $date ?></h4>
                             <h6>Connection Date</h6>
                             </div>
                     </div>
@@ -47,7 +62,7 @@ include('nav.php');
                <div class="card-header bg-success text-white py-4">
                    <div class="row align-items-center">
                        <div class="text-center">
-                           <h4>Nafis Jamil</h4>
+                           <h4><?php echo $name ?></h4>
                            <h6>Name</h6>
                            </div>
                    </div>
@@ -62,7 +77,7 @@ include('nav.php');
                        <i class="fa-solid fa-check-double fa-4x"></i>
                    </div>
                    <div class="col">
-                       <h4>Youth Plus</h4>
+                       <h4><?php echo $pname ?></h4>
                        <h6>Package</h6>
                        </div>
                </div>
@@ -77,7 +92,7 @@ include('nav.php');
                    <i class="fa-solid fa-check-double fa-4x"></i>
                </div>
                <div class="col">
-                   <h4>25 Mbps</h4>
+                   <h4><?php echo $pspeed ?> Mbps</h4>
                    <h6>Bandwidth</h6>
                    </div>
            </div>
@@ -92,7 +107,7 @@ include('nav.php');
                    <i class="fa-solid fa-check-double fa-4x"></i>
                </div>
                <div class="col">
-                   <h4>30 Days</h4>
+                   <h4><?php echo $validity ?></h4>
                    <h6>Validity</h6>
                    </div>
            </div>
@@ -107,7 +122,7 @@ include('nav.php');
                    <i class="fa-solid fa-check-double fa-4x"></i>
                </div>
                <div class="col">
-                   <h4>1200&#2547</h4>
+                   <h4><?php echo $pprice ?>&#2547</h4>
                    <h6>Bill Amount</h6>
                    </div>
            </div>

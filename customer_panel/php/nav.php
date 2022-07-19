@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $fetch_res = mysqli_query($conn, $fetch_sql);
         $chk= mysqli_num_rows($fetch_res);
         if($chk>0){
-            $_SESSION["login"] = "true";
+            $_SESSION["login"] = $id;
         }
     }
 }
