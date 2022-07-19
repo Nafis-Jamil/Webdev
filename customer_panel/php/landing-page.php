@@ -192,7 +192,16 @@ include('nav.php');
                     <div class="container" id="cs-id">
                         <div class="cs-img" style="background-image:url(../images/customer_service.png);"></div>
                         <div class="cs-btn">
-                            <a href="#" class="btn btn-lg btn-success">24 Hour Customer Service</a>
+                        <?php
+                          if(isset($_SESSION['login'])){
+                           echo " <a href='#' class='btn btn-lg btn-success'>24 Hour Customer Service</a>";
+                          }
+                          else{
+                            echo "<button class='btn btn-lg btn-success' id='cslogin'>24 Hour Customer Service</button>";
+                          }
+                        ?>
+                        
+                            
                         </div>
                     </div>
                 </div>
@@ -275,6 +284,14 @@ include('nav.php');
       })
     })
     </script>
+
+<script>
+       document.getElementById("cslogin").addEventListener("click", openLoginFormCs);
+       function openLoginFormCs() {
+        const myModal = new bootstrap.Modal(document.getElementById('loginModal'), {});
+        myModal.show();
+       }
+     </script>
 
 </body>
 

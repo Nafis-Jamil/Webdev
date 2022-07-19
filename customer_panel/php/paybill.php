@@ -1,5 +1,4 @@
-<?php
-include('db-connection.php');
+<?php;
 include('nav.php');
 ?>
 

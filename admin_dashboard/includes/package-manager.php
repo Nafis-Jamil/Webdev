@@ -276,7 +276,7 @@ if ($delete_check) {
         } else {
           console.log("no");
         }
-
+            
       })
     })
   </script>
