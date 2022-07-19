@@ -3,6 +3,32 @@ include('db-connection.php');
 include('nav.php');
 ?>
 
+<?php
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if (isset($_POST['name'])) {
+        
+        $date = date("Y/m/d");
+        $name= $_POST["name"];
+        $contact= $_POST["phone"];
+        $email = $_POST["email"];
+        $address= $_POST["address"];
+        $pid= $_POST["package"];
+        $insert_sql = "INSERT INTO `requests` (`rid`, `date`, `status`, `name`, `contact`, `email`, `address`, `pack_id`) VALUES ('NULL', '$date', '0', '$name', '$contact', '$email', '$address', '$pid');";
+        $res = mysqli_query($conn, $insert_sql);
+        if ($res) {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            <strong>Successful!!</strong> Your Request Has Been Sent. Please Check Your Email For Further Update.
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+        }
+    
+    }
+  
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +54,7 @@ include('nav.php');
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="reqForm">
+                    <form id="reqForm" action="http://localhost/PiperNet/customer_panel/php/index.php" method="post">
                         <input type="hidden" id="sid">
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
@@ -72,7 +98,7 @@ include('nav.php');
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" form="reqForm" class="btn btn-primary">Save changes</button>
+                    <button type="submit" form="reqForm" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -194,7 +220,7 @@ include('nav.php');
                         <div class="cs-btn">
                         <?php
                           if(isset($_SESSION['login'])){
-                           echo " <a href='#' class='btn btn-lg btn-success'>24 Hour Customer Service</a>";
+                           echo " <a href='http://localhost/piperNet/customer_panel/php/customer-service.php' class='btn btn-lg btn-success'>24 Hour Customer Service</a>";
                           }
                           else{
                             echo "<button class='btn btn-lg btn-success' id='cslogin'>24 Hour Customer Service</button>";

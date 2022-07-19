@@ -15,7 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $insert_sql = "INSERT INTO `requests` (`rid`, `date`, `status`, `name`, `contact`, `email`, `address`, `pack_id`) VALUES ('NULL', '$date', '0', '$name', '$contact', '$email', '$address', '$pid');";
     $res = mysqli_query($conn, $insert_sql);
     if ($res) {
-      $insert_check = true;
+        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+       <strong>Successful!!</strong> Your Request Has Been Sent. Please Check Your Email For Further Update.
+       <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+       </div>";
     }
 }
 

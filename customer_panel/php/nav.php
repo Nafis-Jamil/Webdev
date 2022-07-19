@@ -17,6 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
+
+if(isset($_GET['logout'])){
+    // remove all session variables
+    session_unset();
+
+    // destroy the session
+    session_destroy();
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,10 +53,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="modal-body">
 
-        <form method="post" action="http://localhost/PiperNet/customer_panel/php/landing-page.php">
+        <form method="post" action="http://localhost/PiperNet/customer_panel/php/index.php">
                     <div class="container my-2 px-2 py-2">
                         <h5>Enter customer ID:</h5>
-                        <div><input type="text" name="customer_id" placeholder="L3R120" value=""></div>
+                        <div><input type="text" name="customer_id" placeholder="L23jd12k" value="" required></div>
                     </div>
                     <div class="container my-2">
                         <input type="submit" class="btn btn-sm btn-info" value="Login">
@@ -63,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
         <div class="container-md">
-            <a class="navbar-brand mb-0 h1" href="http://localhost/piperNet/customer_panel/php/landing-page.php">
+            <a class="navbar-brand mb-0 h1" href="http://localhost/piperNet/customer_panel/php/index.php">
                 <i class="fa-brands fa-pied-piper"></i>
                 Piper Net
             </a>
@@ -76,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item active">
-                        <a href="http://localhost/piperNet/customer_panel/php/landing-page.php" class="nav-link mx-3">
+                        <a href="http://localhost/piperNet/customer_panel/php/index.php" class="nav-link mx-3">
                             Home
                         </a>
                     </li>
@@ -88,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link mx-2">
+                        <a href="http://localhost/piperNet/customer_panel/php/paybill.php" class="nav-link mx-2">
                             Pay Bill
                         </a>
                     </li>
@@ -109,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </button>";
                         }
                         else{
-                          echo "  <a href='#' class='nav-link mx-2'>
+                          echo "  <a href='http://localhost/piperNet/customer_panel/php/profile.php' class='nav-link mx-2'>
                           <i class='fa-solid fa-user mx-2'></i>
                           Profile
                       </a>";
@@ -121,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <li class="nav-item">
                         <?php
                         if(isset($_SESSION['login'])){
-                            echo "<a href='#' class='nav-link mx-2'>
+                            echo "<a href='http://localhost/piperNet/customer_panel/php/index.php?logout=true' class='nav-link mx-2'>
                             Logout
                         </a>";
                         }
