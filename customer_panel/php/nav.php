@@ -38,7 +38,7 @@ if(isset($_GET['logout'])){
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <title>Document</title>
+    <title>PiperNet</title>
 </head>
 
 <body>
@@ -102,7 +102,7 @@ if(isset($_GET['logout'])){
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link mx-2">
+                        <a href="http://localhost/piperNet/customer_panel/php/about.php" class="nav-link mx-2">
                             About Us
                         </a>
                     </li>

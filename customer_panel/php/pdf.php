@@ -1,7 +1,9 @@
 <?php
 
 if(isset($_GET['id'])){
-    require('fpdf184/fpdf.php');
+
+    
+ require('fpdf184/fpdf.php');
 
 $pdf = new FPDF();
 

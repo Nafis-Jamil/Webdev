@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
@@ -22,7 +22,7 @@
             </button>
                 <!-- brand icon and name -->
 
-                <a class="navbar-brand h1 mx-auto" href="#">
+                <a class="navbar-brand h1 mx-auto" href="http://localhost/piperNet/admin_dashboard/includes/index.php">
                     <i class="fa-brands fa-pied-piper"></i>
                     Piper Net
                 </a>
@@ -51,19 +51,22 @@
         <div class="offcanvas-body">
             <ul class="menu-list">
                 <li class="menu-item">
-                   <a class="btn btn-outline-dark" href="#">Dashboard</a> 
+                   <a class="btn btn-outline-dark" href="http://localhost/piperNet/admin_dashboard/includes/index.php">Dashboard</a> 
                 </li>
                 <li class="menu-item">
-                    <a class="btn btn-outline-dark" href="#">Connection Requests</a>
+                    <a class="btn btn-outline-dark" href="http://localhost/piperNet/admin_dashboard/includes/request.php">Connection Requests</a>
                 </li>
                 <li class="menu-item">
-                    <a class="btn btn-outline-dark" href="#">User Information</a>
+                    <a class="btn btn-outline-dark" href="http://localhost/piperNet/admin_dashboard/includes/user.php">User Information</a>
                 </li>
                 <li class="menu-item">
-                   <a class="btn btn-outline-dark" href="#">Connection Management</a>
+                   <a class="btn btn-outline-dark" href="http://localhost/piperNet/admin_dashboard/includes/complaints.php">Customer Service</a>
                 </li>
                 <li class="menu-item">
                     <a class="btn btn-outline-dark" href="http://localhost/piperNet/admin_dashboard/includes/package-manager.php">Package Manager</a>
+                </li>
+                <li class="menu-item">
+                   <a class="btn btn-outline-dark" href="http://localhost/piperNet/admin_dashboard/includes/bill.php">Bill Management</a>
                 </li>
             </ul>
         </div>

@@ -4,11 +4,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $id = $_POST["customer_id"];
     $sql= "SELECT `packages`.`price` as price , `packages`.`id` as pid from `users` INNER JOIN `packages` ON `packages`.`id` = `users`.`pack_id` AND `users`.`id`='$id';";
     $res= mysqli_query($conn, $sql);
-    $price_fetch= mysqli_fetch_assoc($res);
-    $price = $price_fetch['price'];
-    $pid= $price_fetch['pid'];
+    $check = mysqli_num_rows($res);
+    if($check>0){
+        $price_fetch= mysqli_fetch_assoc($res);
+        $price = $price_fetch['price'];
+        $pid= $price_fetch['pid'];
+    }
+    else{
+        echo "Wrong ID";
+        exit();
+    }
+    
 
 }
+
 ?>
 
 <?php

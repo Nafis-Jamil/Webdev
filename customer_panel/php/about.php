@@ -26,36 +26,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <title>Customer Service</title>
+    <title>About</title>
 </head>
 
 <body>
 
 <div class="container my-5 text-center">
-    <h3><span class="display-3 text-danger"><b>24/7</b></span> At Your Service</h3>  
+    <h3 class="text-info">About PiperNet</h3>  
 </div>
 
-<div class="container">
-    <form action="http://localhost/PiperNet/customer_panel/php/customer-service.php" method="post">
-    <div class="container my-3">
-    <label for="type" class="form-label text-danger"><b>Service Type</b></label>
-    <br>
-    <select class="form-select form-select-sm bg-dark text-white"  style="width:auto" id="type" name="type" required>
-        <option value="Connection Issue">Connection Issue</option>
-        <option value="Payment Issue">Payment Issue</option>
-        <option value="Complaint">Complaint</option>
-        <option value="Feedback">Feedback</option>
-    </select>
-    </div>
-    <div class="container my-3">
-    <label for="desc" class="form-label text-danger"><b>Description</b></label>
-    <br>
-    <textarea class="my-2 bg-light" name="description" id="desc" cols="80" rows="10" maxlength="200" placeholder="Describe in 200 characters"></textarea>
-    </div>
-    <div class="container my-3">
-        <input class="btn btn-md btn-danger" type="submit" value="Submit">
-    </div>
-    </form>
+<div class="container bg-light">
+Beginning our journey in the year 2000, Link3 Technologies Limited is a leading IT solution provider offering a range of solutions including IP telephony, cybersecurity, Office 365 and fixed fiber broadband connections across both the retail and corporate markets of Bangladesh. In October of 2021, Link3 crossed 100k retail broadband connections, becoming the largest ISP in the country in terms of active subscribers. Link3 is also a pioneer in offering integrated solutions in the corporate sector of Bangladesh and is the only ISP connected with every bank in the country.
+
+At Link3, we place the customer at the center of our business and our highly trained team of professionals ensure a level of quality and service which remain unmatched by any other player in the industry. We believe in innovating to simplify and in taking ownership of our actions and services. Whether it be people or organizations, we see it as our duty to enrich the lives of all our customers and to become the preferred choice for a digital lifestyle in the market.
 </div>
 
 

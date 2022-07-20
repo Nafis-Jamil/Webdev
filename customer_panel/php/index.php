@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <title>Document</title>
+    <title>Home</title>
 </head>
 
 <body>
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <div class="container item-container">
                     <h1>Piper Net</h1>
                     <p>Don't Suffer The Buffer</p>
-                    <a href="#" class="btn btn-secondary">
+                    <a href="http://localhost/piperNet/customer_panel/php/about.php" class="btn btn-secondary">
                         Know More About Us
                     </a>
                 </div>
@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <div class="container item-container">
                     <h1>Need New Connection?</h1>
                     <p>Piper Net provides a bufferless internet experience at reasonable price</p>
-                    <a href="#" class="btn btn-success">
+                    <a href="http://localhost/piperNet/customer_panel/php/packages.php" class="btn btn-success">
                         Check Out Our Packages
                     </a>
                 </div>
@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <div class="container item-container">
                     <h1>Pay Your Bill & Stay Connected</h1>
                     <p>Pay your bill with Bkash or Nagad</p>
-                    <a href="#" class="btn btn-lg btn-warning">
+                    <a href="http://localhost/piperNet/customer_panel/php/paybill.php" class="btn btn-lg btn-warning">
                         Payment
                     </a>
                 </div>
